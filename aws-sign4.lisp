@@ -70,7 +70,9 @@ parameter ESCAPE% is NIL, the % is not escaped."
           (sort (loop for (key . value) in params
                       collect (format nil "~A=~A"
                                       (url-encode (string key))
-                                      (url-encode (princ-to-string value))))
+                                      (if (eql value t)
+                                          "true"
+                                          (url-encode (princ-to-string value)))))
                 #'string<)))
 
 (defun trimall (string)
